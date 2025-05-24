@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ParticleEngine.class)
 public class ParticleRenderMixin {
 
-    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "render*", at = @At("HEAD"), cancellable = true)
     private void afkpowersaver$cancelParticles(float partialTick, CallbackInfo ci) {
         if (renderDisabled) {
             ci.cancel(); // Cancel particle rendering

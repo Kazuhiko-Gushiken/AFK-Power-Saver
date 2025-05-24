@@ -3,6 +3,7 @@ package com.enginnx.afkpowersaver;
 import net.minecraft.client.KeyMapping;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
@@ -22,6 +23,7 @@ public class AFKPowerSaver
 
     public AFKPowerSaver(IEventBus modEventbus, ModContainer modContainer) {
         NeoForge.EVENT_BUS.register(this);
+        modEventbus.addListener(ClientModEvents::onClientSetup);
     }
 
     @SubscribeEvent

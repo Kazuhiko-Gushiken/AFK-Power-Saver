@@ -3,6 +3,7 @@ package com.enginnx.afkpowersaver;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.telemetry.events.WorldUnloadEvent;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
@@ -12,6 +13,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.event.RenderGuiEvent;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.GameShuttingDownEvent;
@@ -35,6 +37,7 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
         NeoForge.EVENT_BUS.addListener(ClientModEvents::onClientTick);
+        NeoForge.EVENT_BUS.addListener(ClientModEvents::onRenderGui);
     }
 
     public static int previousFramerateLimit = -1;
@@ -51,6 +54,19 @@ public class ClientModEvents {
         }
     }
     */
+
+    public static void onRenderGui(RenderGuiEvent.Post event) {
+        if (!ClientModEvents.renderDisabled) return;
+
+        Minecraft mc = Minecraft.getInstance();
+        Font font = mc.font;
+
+        int x = 5;
+        int y = 5;
+
+        event.getGuiGraphics().drawString(font, "AFK Power Saver: ON", x, y, 0xB22222);
+
+    }
 
     public static void onClientTick(ClientTickEvent.Post event) {
         if (AFKPowerSaver.disableRender.consumeClick()) {
