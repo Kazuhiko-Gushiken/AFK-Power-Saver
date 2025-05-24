@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.enginnx.afkpowersaver.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+  ],
+  "client": [
+    "ParticleRenderMixin",
+    "GameRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
